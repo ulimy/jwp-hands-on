@@ -1,8 +1,8 @@
 package com.example;
 
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.*;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 class ServletTest {
 
@@ -25,7 +25,8 @@ class ServletTest {
 
         // expected를 0이 아닌 올바른 값으로 바꿔보자.
         // 예상한 결과가 나왔는가? 왜 이런 결과가 나왔을까?
-        assertThat(Integer.parseInt(response.body())).isEqualTo(0);
+        // sharedCounter라는 변수가 공유되고 있다. 초기값은 0이고 ++하는 요청이 3번 들어갔기 때문!
+        assertThat(Integer.parseInt(response.body())).isEqualTo(3);
     }
 
     @Test
@@ -47,6 +48,7 @@ class ServletTest {
 
         // expected를 0이 아닌 올바른 값으로 바꿔보자.
         // 예상한 결과가 나왔는가? 왜 이런 결과가 나왔을까?
-        assertThat(Integer.parseInt(response.body())).isEqualTo(0);
+        // localCounter는 로컬변수로써 0으로 초기화 되어있고 ++되어 반환했으므로 1
+        assertThat(Integer.parseInt(response.body())).isEqualTo(1);
     }
 }
