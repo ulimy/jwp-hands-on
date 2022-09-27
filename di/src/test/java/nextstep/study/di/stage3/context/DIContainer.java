@@ -20,11 +20,11 @@ class DIContainer {
 
     @SuppressWarnings("unchecked")
     public <T> T getBean(final Class<T> aClass) {
-        Object b = beans.stream()
-            .filter(bean -> aClass.isInstance(bean))
+        Object bean = beans.stream()
+            .filter(it -> aClass.isInstance(it))
             .findAny()
             .orElse(null);
-        return aClass.cast(b);
+        return aClass.cast(bean);
     }
 
     private Set<Object> createBeans(final Set<Class<?>> classes) {
